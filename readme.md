@@ -9,6 +9,10 @@ Tasks
 3. Run tomcat.
 4. Create servlet.
 5. War.
+In pom file: <br/>
+`	<!--<packaging>jar</packaging>-->`<br/>
+`	<packaging>war</packaging>`
+
 
 TODO:
 6. Dispatch url\`s
