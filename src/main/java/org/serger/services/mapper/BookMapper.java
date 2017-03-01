@@ -21,4 +21,6 @@ public interface BookMapper {
     @Select("SELECT * FROM book")
     Collection <Book> selectAll();
 
+    @Select("SELECT * FROM book WHERE title=#{title}")
+    Collection <Book> selectByTitle(String title);
 }

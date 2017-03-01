@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.serger.services.entity.Book;
 import org.serger.services.entity.BookReader;
 
 import java.util.Collection;
@@ -20,4 +21,5 @@ public interface BookReaderMapper {
     @Select("SELECT * FROM bookreader")
     Collection<BookReader> selectAll();
 
+    Collection<Book> selectBooksByReader(long readerId);
 }

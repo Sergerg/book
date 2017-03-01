@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS reader (
 
 CREATE TABLE IF NOT EXISTS bookreader (
     id BIGINT SERIAL NOT NULL,
-    book_id BIGINT,
+    book_id BIGINT UNIQUE,
     reader_id BIGINT
 );

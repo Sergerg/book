@@ -19,7 +19,7 @@ public class BookApplication {
 	@Bean
     CommandLineRunner runner() {
 	    return args -> {
-            log.debug("runner...");
+	        log.debug("runner...");
         };
     }
 }

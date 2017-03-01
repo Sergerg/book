@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reader {
-    private long id;
+    private Long id;
     private String name;
 }

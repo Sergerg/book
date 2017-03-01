@@ -21,5 +21,6 @@ public interface ReaderMapper {
     @Select("SELECT * FROM reader")
     Collection<Reader> selectAll();
 
-
+    @Select("SELECT * FROM reader WHERE name=#{s}")
+    Collection<Reader> selectByName(String s);
 }

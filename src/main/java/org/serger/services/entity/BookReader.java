@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookReader {
-    private long id;
+    private Long id;
     private long bookId;
     private long readerId;
 }

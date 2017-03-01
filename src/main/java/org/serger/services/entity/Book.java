@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Book {
     private String title, author;
-    private long id;
+    private Long id;
 }
