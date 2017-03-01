@@ -1,0 +1,17 @@
+
+CREATE TABLE IF NOT EXISTS book (
+    id BIGINT SERIAL NOT NULL,
+    title VARCHAR,
+    author VARCHAR
+);
+
+CREATE TABLE IF NOT EXISTS reader (
+    id BIGINT SERIAL NOT NULL,
+    name VARCHAR
+);
+
+CREATE TABLE IF NOT EXISTS bookreader (
+    id BIGINT SERIAL NOT NULL,
+    book_id BIGINT,
+    reader_id BIGINT
+);
