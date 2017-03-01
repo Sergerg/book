@@ -1,32 +1,32 @@
 package org.serger;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
+import org.serger.servlets.BooksServlet;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import javax.servlet.*;
-import java.io.IOException;
+import javax.servlet.Servlet;
 
 @SpringBootApplication
 public class BookApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(BookApplication.class);
-
-
-	@SuppressWarnings("serial")
 	@Bean
 	public Servlet dispatcherServlet() {
-		return new GenericServlet() {
-			@Override
-			public void service(ServletRequest req, ServletResponse res)
-					throws ServletException, IOException {
-				res.setContentType("text/plain");
-				res.getWriter().append("Hello World");
-			}
-		};
+		return new BooksServlet();
+	}
+
+	@Bean
+	public ServletRegistrationBean dispatcherServletRegistration() {
+		ServletRegistrationBean registration = new ServletRegistrationBean(
+				dispatcherServlet(), "/books/*");
+
+		registration
+				.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
+
+		return registration;
 	}
 
 	public static void main(String[] args) {
