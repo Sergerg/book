@@ -2,12 +2,12 @@ package org.serger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.serger.services.entity.Book;
-import org.serger.services.entity.BookReader;
-import org.serger.services.entity.Reader;
-import org.serger.services.mapper.BookMapper;
-import org.serger.services.mapper.BookReaderMapper;
-import org.serger.services.mapper.ReaderMapper;
+import org.serger.domain.entity.Book;
+import org.serger.domain.entity.BookReader;
+import org.serger.domain.entity.Reader;
+import org.serger.domain.mapper.BookMapper;
+import org.serger.domain.mapper.BookReaderMapper;
+import org.serger.domain.mapper.ReaderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

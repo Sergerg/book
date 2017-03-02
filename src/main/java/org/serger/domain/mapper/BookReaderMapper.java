@@ -1,11 +1,11 @@
-package org.serger.services.mapper;
+package org.serger.domain.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
-import org.serger.services.entity.Book;
-import org.serger.services.entity.BookReader;
+import org.serger.domain.entity.Book;
+import org.serger.domain.entity.BookReader;
 
 import java.util.Collection;
 

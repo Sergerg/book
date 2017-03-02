@@ -1,4 +1,4 @@
-package org.serger.services.entity;
+package org.serger.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

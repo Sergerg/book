@@ -1,10 +1,10 @@
-package org.serger.services.mapper;
+package org.serger.domain.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
-import org.serger.services.entity.Reader;
+import org.serger.domain.entity.Reader;
 
 import java.util.Collection;
 
