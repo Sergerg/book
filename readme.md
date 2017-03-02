@@ -14,14 +14,17 @@ In pom file: <br/>
 `	<!--<packaging>jar</packaging>-->`<br/>
 `	<packaging>war</packaging>`
 6. Test injection mappers into Servlet throught Services.
+7. Parse url.
+8. Controllers. Link url with Controllers throught reflection.
+Controller interface.
 
 TODO:
 
-7. Parse url.
-8. Controllers. Link url with Controllers. Properties for Controllers?
-9. Decorate myBatis mappers, entitirs.
-10. Select JSON lib.
-11. Entity to JSON decore.
-12. Dispatch url\`s
-13. REST.
-14. Test REST.
+9. Http methods parse.
+10. End interface, Controllers.
+11. Decorate myBatis mappers, entities.
+12. Select JSON lib.
+13. Entity to JSON decore.
+14. Dispatch url\`s
+15. REST.
+16. Test REST.

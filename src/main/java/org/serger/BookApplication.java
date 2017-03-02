@@ -1,6 +1,6 @@
 package org.serger;
 
-import org.serger.servlets.BooksServlet;
+import org.serger.servlets.BooksRestServlet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,7 @@ public class BookApplication {
 
 	@Bean
 	public Servlet dispatcherServlet() {
-		return new BooksServlet();
+		return new BooksRestServlet();
 	}
 
 	@Bean

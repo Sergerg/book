@@ -1,7 +1,6 @@
 package org.serger.servlets;
 
 import org.serger.controller.ActionRest;
-import org.serger.domain.mapper.BookMapper;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,10 +15,7 @@ import java.io.IOException;
 /**
  * Created by galichanin on 02.03.2017.
  */
-public class BooksServlet extends HttpServlet {
-
-    @Autowired
-    BookMapper bookMapper;
+public class BooksRestServlet extends HttpServlet {
 
     @Autowired
     ApplicationContext applicationContext;
@@ -29,6 +25,8 @@ public class BooksServlet extends HttpServlet {
             throws ServletException, IOException {
         String path = req.getPathInfo();
         log("Book servlet path = "+path);
+        String method = req.getMethod();
+        log("Method = "+method);
 
         if (path.split("/").length != 2) {
             return; // TODO: err
@@ -42,7 +40,23 @@ public class BooksServlet extends HttpServlet {
             if (!(controller instanceof ActionRest)) {
                 throw new Exception("AAA"); // XXX: AAA!!!
             }
-            String rest = ((ActionRest) controller).actionRest(req.getParameterMap());
+            ActionRest actionRest = ((ActionRest) controller);
+            String rest;
+            switch (method) {
+                case "PUT":
+                    rest = actionRest.put(req.getParameterMap());
+                    break;
+                case "POST":
+                    rest = actionRest.post(req.getParameterMap());
+                    break;
+                case "DELETE":
+                    rest = actionRest.delete(req.getParameterMap());
+                    break;
+                case "GET":
+                default:
+                    rest = actionRest.get(req.getParameterMap());
+                    break;
+            }
 
             res.setContentType("text/json");
             res.getWriter().append(rest);
