@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by galichanin on 03.03.2017.
  */
-@Component("BookController")
+@Component//("bookController")
 public class BookController implements ActionRest {
 
     private static final Logger log = LoggerFactory.getLogger(BookController.class);

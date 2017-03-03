@@ -74,8 +74,7 @@ public class BooksRestServlet extends HttpServlet {
     private String prepareControllerBeanName(String path) {
         String s = "";
         if (path.length()>=2) {
-            s = path.substring(1,2).toUpperCase()
-                    + path.substring(2, path.length()).toLowerCase();
+            s = path.substring(1, path.length()).toLowerCase();
         }
         return s+"Controller";
     }
