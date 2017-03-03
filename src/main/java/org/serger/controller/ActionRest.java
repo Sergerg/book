@@ -7,8 +7,31 @@ import java.util.Map;
  * TODO: rename methods, change/add some params...
  */
 public interface ActionRest {
-    String get(Map params);
-    String put(Map params);
-    String post(Map params);
-    String delete(Map params);
+    /**
+     * Like get one, get all
+     * @param params
+     * @return
+     */
+    String get(Map <String,String[]> params);
+
+    /**
+     * Like add
+     * @param params
+     * @return
+     */
+    String put(Map <String,String[]> params);
+
+    /**
+     * Like update
+     * @param params
+     * @return
+     */
+    String post(Map <String,String[]> params);
+
+    /**
+     * Like delete
+     * @param params
+     * @return
+     */
+    String delete(Map <String,String[]> params);
 }

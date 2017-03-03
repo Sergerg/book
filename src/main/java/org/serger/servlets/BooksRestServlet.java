@@ -28,8 +28,9 @@ public class BooksRestServlet extends HttpServlet {
         String method = req.getMethod();
         log("Method = "+method);
 
+        // TODO: check URL
         if (path.split("/").length != 2) {
-            return; // TODO: err
+            throw new ServletException("Bad URL");
         }
 
         String controllerBeanName = prepareControllerBeanName(path);
@@ -38,7 +39,7 @@ public class BooksRestServlet extends HttpServlet {
             Object controller = applicationContext.getBean(controllerBeanName);
             log("Check ActionRest...");
             if (!(controller instanceof ActionRest)) {
-                throw new Exception("AAA"); // XXX: AAA!!!
+                throw new ServletException("Inner error!");
             }
             ActionRest actionRest = ((ActionRest) controller);
             String rest;
@@ -58,14 +59,14 @@ public class BooksRestServlet extends HttpServlet {
                     break;
             }
 
-            res.setContentType("text/json");
-            res.getWriter().append(rest);
+            // Standart REST response
+            // TODO: check!!!
+            res.getOutputStream().write( rest.getBytes("UTF-8") );
+            res.setContentType("application/json; charset=UTF-8");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setStatus( HttpServletResponse.SC_OK );
         } catch (NoSuchBeanDefinitionException e) {
-            log(e.getLocalizedMessage(), e);
-            // TODO: err
-        } catch (Exception e) {
-            log(e.getLocalizedMessage(), e);
-            // TODO: err
+            throw new ServletException("Method Not found", e);
         }
         log("Query ok!");
     }
