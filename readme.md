@@ -1,7 +1,13 @@
 #Book REST service.
 
 For test logic run '`mvn test`'.
-
+For command line run.
+In pom file: <br/>
+`	<!--<packaging>jar</packaging>-->`<br/>
+`	<packaging>war</packaging>`
+`mvn clean package`<br/>
+`cd target && java -jar book*.jar`
+hehe
 
 Tasks:
 
@@ -15,16 +21,17 @@ In pom file: <br/>
 `	<packaging>war</packaging>`
 6. Test injection mappers into Servlet throught Services.
 7. Parse url.
-8. Controllers. Link url with Controllers throught reflection.
+8. Dispatch url\`s
+9. Controllers. Link url with Controllers throught reflection.
 Controller interface.
-9. Select JSON lib.
-10. Http methods parse.
+10. Select JSON lib.
+11. Http methods parse.
+12. End interface, Controllers.
 
 TODO:
 
-11. End interface, Controllers.
-12. Decorate myBatis mappers, entities.
-13. Entity to JSON decore.
-14. Dispatch url\`s
-15. REST.
+13. Decorate myBatis mappers, entities.
+14. Entity to JSON decore.
+15. REST pribciples.
 16. Test REST.
+17. End all domain REST.
