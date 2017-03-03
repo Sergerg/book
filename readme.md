@@ -17,15 +17,13 @@ In pom file: <br/>
 7. Parse url.
 8. Controllers. Link url with Controllers throught reflection.
 Controller interface.
+9. Select JSON lib.
+10. Http methods parse.
 
 TODO:
 
-9. Http methods parse.
-10. End interface, Controllers.
-11. Decorate myBatis mappers, entities.
-12. Select JSON lib. 
-(http://javadevblog.com/primer-raboty-s-json-simple-v-java-parsing-i-sozdanie-json.html,
-http://www.devjavasource.com/java-8/how-to-read-json-object-using-java-8/)
+11. End interface, Controllers.
+12. Decorate myBatis mappers, entities.
 13. Entity to JSON decore.
 14. Dispatch url\`s
 15. REST.

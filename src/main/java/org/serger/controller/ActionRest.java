@@ -12,7 +12,7 @@ public interface ActionRest {
      * @param params
      * @return
      */
-    String get(Map <String,String[]> params);
+    String get(Map <String,String[]> params) throws ControllerException;
 
     /**
      * Like add

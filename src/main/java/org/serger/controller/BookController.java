@@ -1,5 +1,7 @@
 package org.serger.controller;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.serger.domain.entity.Book;
 import org.serger.domain.mapper.BookMapper;
 import org.slf4j.Logger;
@@ -21,6 +23,11 @@ public class BookController implements ActionRest {
     @Autowired
     BookMapper bookMapper;
 
+    /**
+     * Parse
+     * @param param
+     * @return
+     */
     private Book parseMap(Map <String,String[]> param) {
         Book book = new Book();
         String[] id = param.get("id");
@@ -39,30 +46,67 @@ public class BookController implements ActionRest {
         return book;
     }
 
-    public String get(Map params) {
-        Book book = parseMap(params);
+    /**
+     * TODO: move into specific model, id change to UID.
+     * @param book
+     * @return
+     */
+    public String buildWeatherJson(Book book) {
+        // для простоты примера просто хардкодим нужные данные в методе
+        JSONObject jsonObjectBook = new JSONObject();
+        jsonObjectBook.put("id", book.getId());
+        jsonObjectBook.put("title", book.getTitle());
+        jsonObjectBook.put("author", book.getAuthor());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("book", jsonObjectBook);
+        return jsonObject.toJSONString();
+    }
+
+    public String get(Map params) throws ControllerException {
+        Book book = parseMap(params); // XXX: AspectJ or/and AbstractRestController<Book>
         log.debug("get, params="+book);
-        return "{'Book`s':'"+bookMapper.selectAll().size()+"'}";
+        // TODO: move into specific object
+        if (book.getId() == null || book.getId() == 0) {
+            JSONArray jsonBooks = new JSONArray();
+            bookMapper.selectAll().stream().forEach( book1 -> {
+                JSONObject jsonObjectBook = new JSONObject();
+                jsonObjectBook.put("id", book1.getId());
+                jsonObjectBook.put("title", book1.getTitle());
+                jsonObjectBook.put("author", book1.getAuthor());
+                jsonBooks.add(jsonObjectBook);
+            }); // XXX: Limit!!!
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("books", jsonBooks);
+            return jsonObject.toJSONString();
+        }
+        Book bookSelected = bookMapper.selectById(book.getId()).stream().findFirst().get();
+        log.debug("get, found book="+bookSelected);
+        return buildWeatherJson(bookSelected); // XXX: AspectJ or/and AbstractRestController<Book>
     }
 
     @Override
     public String put(Map params) {
         Book book = parseMap(params);
         log.debug("put, params="+book);
-        return "";
+        bookMapper.insert(book);
+        return buildWeatherJson(book); // TODO ???
     }
 
     @Override
     public String post(Map params) {
         Book book = parseMap(params);
         log.debug("post, params="+book);
-        return "";
+        bookMapper.update(book);
+        return buildWeatherJson(book); // TODO ???
     }
 
     @Override
     public String delete(Map params) {
         Book book = parseMap(params);
         log.debug("delete, params="+book);
-        return "";
+        if (book.getId() != null || book.getId() != 0) {
+            bookMapper.delete(book.getId());
+        }
+        return ""; // TODO ?
     }
 }

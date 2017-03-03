@@ -1,6 +1,7 @@
 package org.serger.servlets;
 
 import org.serger.controller.ActionRest;
+import org.serger.controller.ControllerException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -67,6 +68,8 @@ public class BooksRestServlet extends HttpServlet {
             res.setStatus( HttpServletResponse.SC_OK );
         } catch (NoSuchBeanDefinitionException e) {
             throw new ServletException("Method Not found", e);
+        } catch (ControllerException e) {
+            throw new ServletException(e.getLocalizedMessage(), e);
         }
         log("Query ok!");
     }
