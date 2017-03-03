@@ -6,7 +6,7 @@
         UPDATE book
         <set>
             <if test="title != null">title=#{title},</if>
-            <if test="title != null">author=#{author},</if>
+            <if test="author != null">author=#{author},</if>
         </set>
         where id = #{id}
     </update>
