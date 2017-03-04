@@ -27,11 +27,28 @@ Controller interface.
 10. Select JSON lib.
 11. Http methods parse.
 12. End interface, Controllers.
+13. Decorate myBatis mappers, entities.
+14. Entity to JSON decore.
 
 TODO:
 
-13. Decorate myBatis mappers, entities.
-14. Entity to JSON decore.
 15. REST pribciples.
+Errors:
+200 OK
+201 Created (Запись создана)
+400 Bad Request (некорректный запрос)
+404 Not Found (Данные не найдены)
+500 Internal server error (внутренняя ошибка сервера)
+URL:
+/books/v1.0/books/10
+Version:
+v1.0
+GET - list, concrete
+DELETE - удаление
+PUT - imdepotent - add, update
+POST - >
+
+
+
 16. Test REST.
 17. End all domain REST.
