@@ -7,7 +7,13 @@ In pom file: <br/>
 `	<packaging>war</packaging>`
 `mvn clean package`<br/>
 `cd target && java -jar book*.jar`
-hehe
+
+Use:
+`http://localhost:8080/books/readers/{reader_id}/books/{book_id}`
+GET - book_id not use,
+PUT,
+DELETE
+
 
 Tasks:
 
@@ -54,13 +60,12 @@ URL - only query, JSON - all data.
   - 500 Internal server error (внутренняя ошибка сервера)
   return text<br/>
   error JSON format
-
-TODO:
-
 16. Methods:
 - выдать книгу абоненту; readers/{id}/books/{id} put
 - принять книгу у абонента; readers/{id}/books/{id} delete?
 - получить список книг, выданных заданному абоненту readers/{id}/books get
+
+TODO:
 
 17. Test REST.
 18. End all domain REST.
