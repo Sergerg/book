@@ -15,33 +15,12 @@ import java.util.Map;
  * Created by galichanin on 03.03.2017.
  */
 @Component//("booksController")
-public class BooksController implements ActionRest {
+public class BooksController extends AbstractController {
 
     private static final Logger log = LoggerFactory.getLogger(BooksController.class);
 
     @Autowired
     BookJsonModel bookJsonModel;
-
-    /**
-     * XXX - uid?!
-     * @param paths
-     * @return
-     */
-    private long parseId(String[] paths, boolean skipId) throws ControllerException {
-        if (paths.length < 3) {
-            if (skipId) return 0;
-            throw new ControllerException("Need id!", HttpServletResponse.SC_BAD_REQUEST);
-        }
-        String sId = paths[2];
-        log.debug("id = "+sId);
-        long id = 0;
-        try {
-            id = Long.parseLong(sId);
-        } catch (NumberFormatException e) {
-            log.warn(e.getLocalizedMessage(), e);
-        }
-        return id;
-    }
 
     @Override
     public ActionResult get(String[] paths, Map params) throws ControllerException {

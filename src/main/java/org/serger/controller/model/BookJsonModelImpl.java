@@ -3,6 +3,7 @@ package org.serger.controller.model;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.serger.domain.mapper.BookMapper;
+import org.serger.domain.mapper.BookReaderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,29 @@ public class BookJsonModelImpl implements BookJsonModel {
     @Autowired
     BookMapper bookMapper;
 
+    @Autowired
+    BookReaderMapper bookReaderMapper;
+
     @Override
     public String select(long id) {
         BookJson bookSelected = new BookJson(bookMapper.selectById(id).stream().findFirst().get());
         log.debug("get, found book="+bookSelected);
         return bookSelected.buildBookJson().toJSONString();
+    }
+
+    @Override
+    public String selectByReader(long readerId) {
+        JSONArray jsonBooks = new JSONArray();
+        bookReaderMapper.selectBooksByReader(readerId).stream().forEach( book1 -> {
+            JSONObject jsonObjectBook = new JSONObject();
+            jsonObjectBook.put("id", book1.getId());
+            jsonObjectBook.put("title", book1.getTitle());
+            jsonObjectBook.put("author", book1.getAuthor());
+            jsonBooks.add(jsonObjectBook);
+        }); // XXX: Limit!!!
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("books", jsonBooks);
+        return jsonObject.toJSONString();
     }
 
     @Override

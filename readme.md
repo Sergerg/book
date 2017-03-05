@@ -29,9 +29,6 @@ Controller interface.
 12. End interface, Controllers.
 13. Decorate myBatis mappers, entities.
 14. Entity to JSON decore.
-
-TODO:
-
 15. REST pribciples.
 - URL:<br/>
 Example: **/books/v1.0/books/10** <br/>
@@ -39,12 +36,11 @@ Example: **/books/v1.0/books/10** <br/>
 Add parsing !!!
 - Params:<br/>
 URL - only query, JSON - all data.
-- Version:<br/>
-v1.0
 - Methods:
   - GET - list, concrete<br/>
     /books/v1.0/books/10<br/>
-    /books/v1.0/books
+    /books/v1.0/books<br/>
+    Search: ?title=book1
   - DELETE - удаление<br/>
     /books/v1.0/books/10
   - PUT - idempotent - add, update<br/>
@@ -56,12 +52,20 @@ v1.0
   - 400 Bad Request (некорректный запрос)
   - 404 Not Found (Данные не найдены)
   - 500 Internal server error (внутренняя ошибка сервера)
-  
   return text<br/>
   error JSON format
+
+TODO:
+
+16. Methods:
+- выдать книгу абоненту; readers/{id}/books/{id} put
+- принять книгу у абонента; readers/{id}/books/{id} delete?
+- получить список книг, выданных заданному абоненту readers/{id}/books get
+
+17. Test REST.
+18. End all domain REST.
+
+19. Rest:
+- Version:<br/>
+v1.0
 - Validation?
-
-
-
-16. Test REST.
-17. End all domain REST.

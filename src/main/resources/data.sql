@@ -14,3 +14,5 @@ insert into reader (name) values ('Reader 5');
 insert into reader (name) values ('Reader 6');
 insert into reader (name) values ('Reader 7');
 insert into reader (name) values ('Reader 8');
+
+insert into bookreader (reader_id,book_id) values (1,1);
