@@ -33,20 +33,33 @@ Controller interface.
 TODO:
 
 15. REST pribciples.
-Errors:
-200 OK
-201 Created (Запись создана)
-400 Bad Request (некорректный запрос)
-404 Not Found (Данные не найдены)
-500 Internal server error (внутренняя ошибка сервера)
-URL:
-/books/v1.0/books/10
-Version:
+- URL:<br/>
+Example: **/books/v1.0/books/10** <br/>
+**../books/search/Title** <br/>
+Add parsing !!!
+- Params:<br/>
+URL - only query, JSON - all data.
+- Version:<br/>
 v1.0
-GET - list, concrete
-DELETE - удаление
-PUT - imdepotent - add, update
-POST - >
+- Methods:
+  - GET - list, concrete<br/>
+    /books/v1.0/books/10<br/>
+    /books/v1.0/books
+  - DELETE - удаление<br/>
+    /books/v1.0/books/10
+  - PUT - idempotent - add, update<br/>
+    ???
+  - POST - ???
+- Errors:
+  - 200 OK
+  - 201 Created (Запись создана)
+  - 400 Bad Request (некорректный запрос)
+  - 404 Not Found (Данные не найдены)
+  - 500 Internal server error (внутренняя ошибка сервера)
+  
+  return text<br/>
+  error JSON format
+- Validation?
 
 
 

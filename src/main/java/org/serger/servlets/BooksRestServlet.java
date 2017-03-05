@@ -30,11 +30,12 @@ public class BooksRestServlet extends HttpServlet {
         log("Method = "+method);
 
         // TODO: check URL
-        if (path.split("/").length != 2) {
+        String[] paths = path.split("/");
+        if (paths.length < 2 && paths.length > 3) {
             throw new ServletException("Bad URL");
         }
 
-        String controllerBeanName = prepareControllerBeanName(path);
+        String controllerBeanName = prepareControllerBeanName(paths[1]);
         log("Try find bean:"+controllerBeanName);
         try {
             Object controller = applicationContext.getBean(controllerBeanName);
@@ -74,11 +75,14 @@ public class BooksRestServlet extends HttpServlet {
         log("Query ok!");
     }
 
+    /**
+     * Name controller
+     * XXX: Camel case!!! Define in Controller @Qualifier annotation
+     * @param path
+     * @return
+     */
     private String prepareControllerBeanName(String path) {
-        String s = "";
-        if (path.length()>=2) {
-            s = path.substring(1, path.length()).toLowerCase();
-        }
+        String s = path.substring(0,1).toLowerCase() + path.substring(1);
         return s+"Controller";
     }
 
