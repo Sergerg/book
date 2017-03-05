@@ -19,7 +19,7 @@ public interface BookReaderMapper {
     Collection<BookReader> selectAll();
 
     @Delete("DELETE FROM bookreader WHERE reader_id=#{readerId} AND book_id=#{bookId}")
-    void delete(long readerId, long bookId);
+    void delete(BookReader bookReader);
 
     Collection<Book> selectBooksByReader(long readerId);
 }

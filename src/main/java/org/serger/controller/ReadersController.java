@@ -1,7 +1,6 @@
 package org.serger.controller;
 
 import org.serger.controller.model.BookJsonModel;
-import org.serger.controller.model.ReaderJsonModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ public class ReadersController  extends AbstractController {
 
     @Autowired
     BookJsonModel bookJsonModel;
-
-    @Autowired
-    ReaderJsonModel readerJsonModel;
 
     /**
      * Check url for get readers books.

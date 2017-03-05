@@ -80,7 +80,7 @@ public class BookJsonModelImpl implements BookJsonModel {
 
     @Override
     public void deleteReader(long readerId, long bookId) {
-        bookReaderMapper.delete(readerId, bookId);
+        bookReaderMapper.delete(new BookReader(null, bookId, readerId));
     }
 
     @Override
