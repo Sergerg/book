@@ -9,29 +9,39 @@ import java.util.Map;
 public interface ActionRest {
     /**
      * Like get one, get all
+     *
+     * @param paths
      * @param params
      * @return
      */
-    String get(Map <String,String[]> params) throws ControllerException;
+    String get(String[] paths, Map<String, String[]> params) throws ControllerException;
 
     /**
      * Like add
+     *
+     * @param paths
      * @param params
+     * @param reqBody
      * @return
      */
-    String put(Map <String,String[]> params);
+    String put(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
 
     /**
      * Like update
+     *
+     * @param paths
      * @param params
+     * @param reqBody
      * @return
      */
-    String post(Map <String,String[]> params);
+    String post(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
 
     /**
      * Like delete
+     *
+     * @param paths
      * @param params
      * @return
      */
-    String delete(Map <String,String[]> params);
+    String delete(String[] paths, Map<String, String[]> params) throws ControllerException;
 }

@@ -1,6 +1,8 @@
 package org.serger.controller.model;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.serger.domain.entity.Book;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,19 @@ public class BookJson extends Book {
         this.setId(book.getId());
         this.setTitle(book.getTitle());
         this.setAuthor(book.getAuthor());
+    }
+
+    /**
+     * JSON to BookJson constructor...
+     * @param reqBody - json
+     */
+    public BookJson(String reqBody) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(reqBody);
+        JSONObject jsonBook = (JSONObject) jsonObject.get("book");
+        setTitle((String)jsonBook.get("title"));
+        setAuthor((String)jsonBook.get("author"));
+        log.debug("After JSON parse = " + toString());
     }
 
     /**

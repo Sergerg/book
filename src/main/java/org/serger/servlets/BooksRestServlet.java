@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
@@ -29,11 +30,14 @@ public class BooksRestServlet extends HttpServlet {
         String method = req.getMethod();
         log("Method = "+method);
 
-        // TODO: check URL
         String[] paths = path.split("/");
-        if (paths.length < 2 && paths.length > 3) {
-            throw new ServletException("Bad URL");
-        }
+        // TODO: check URL
+//        if (paths.length < 2 && paths.length > 3) {
+//            throw new ServletException("Bad URL");
+//        }
+
+        String reqBody = readRequestBody(req);
+        log("reqBody = "+reqBody);
 
         String controllerBeanName = prepareControllerBeanName(paths[1]);
         log("Try find bean:"+controllerBeanName);
@@ -47,17 +51,17 @@ public class BooksRestServlet extends HttpServlet {
             String rest;
             switch (method) {
                 case "PUT":
-                    rest = actionRest.put(req.getParameterMap());
+                    rest = actionRest.put(paths, req.getParameterMap(), reqBody);
                     break;
                 case "POST":
-                    rest = actionRest.post(req.getParameterMap());
+                    rest = actionRest.post(paths, req.getParameterMap(), reqBody);
                     break;
                 case "DELETE":
-                    rest = actionRest.delete(req.getParameterMap());
+                    rest = actionRest.delete(paths, req.getParameterMap());
                     break;
                 case "GET":
-                default:
-                    rest = actionRest.get(req.getParameterMap());
+                default:    // ???
+                    rest = actionRest.get(paths, req.getParameterMap());
                     break;
             }
 
@@ -84,6 +88,22 @@ public class BooksRestServlet extends HttpServlet {
     private String prepareControllerBeanName(String path) {
         String s = path.substring(0,1).toLowerCase() + path.substring(1);
         return s+"Controller";
+    }
+
+    private String readRequestBody(HttpServletRequest request) {
+        try {
+            // Read from request
+            StringBuilder buffer = new StringBuilder();
+            BufferedReader reader = request.getReader();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            log("Failed to read the request body from the request.");
+        }
+        return null;
     }
 
 
