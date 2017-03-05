@@ -1,6 +1,5 @@
 package org.serger.controller;
 
-import org.json.simple.parser.ParseException;
 import org.serger.controller.model.BookJson;
 import org.serger.controller.model.BookJsonModel;
 import org.slf4j.Logger;

@@ -1,9 +1,6 @@
 package org.serger.domain.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.serger.domain.entity.Book;
 import org.serger.domain.entity.BookReader;
 
@@ -20,6 +17,9 @@ public interface BookReaderMapper {
 
     @Select("SELECT * FROM bookreader")
     Collection<BookReader> selectAll();
+
+    @Delete("DELETE FROM bookreader WHERE reader_id=#{readerId} AND book_id=#{bookId}")
+    void delete(long readerId, long bookId);
 
     Collection<Book> selectBooksByReader(long readerId);
 }

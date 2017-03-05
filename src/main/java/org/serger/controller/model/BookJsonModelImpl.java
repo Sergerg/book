@@ -2,6 +2,7 @@ package org.serger.controller.model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.serger.domain.entity.BookReader;
 import org.serger.domain.mapper.BookMapper;
 import org.serger.domain.mapper.BookReaderMapper;
 import org.slf4j.Logger;
@@ -75,6 +76,16 @@ public class BookJsonModelImpl implements BookJsonModel {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("books", jsonBooks);
         return jsonObject.toJSONString();
+    }
+
+    @Override
+    public void deleteReader(long readerId, long bookId) {
+        bookReaderMapper.delete(readerId, bookId);
+    }
+
+    @Override
+    public void insertReader(long readerId, long bookId) {
+        bookReaderMapper.insert(new BookReader(null, bookId, readerId));
     }
 
 }

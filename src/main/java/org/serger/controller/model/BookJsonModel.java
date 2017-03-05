@@ -5,9 +5,12 @@ package org.serger.controller.model;
  */
 public interface BookJsonModel {
     String select(long id);
-    String selectByReader(long readerId);
     void delete(long id);
     void update(BookJson book);
     void insert(BookJson book);
     String selectAll();
+
+    String selectByReader(long readerId);
+    void deleteReader(long readerId, long bookId);
+    void insertReader(long readerId, long bookId);
 }

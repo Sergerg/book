@@ -1,6 +1,5 @@
 package org.serger.controller.model;
 
-import org.serger.domain.mapper.BookReaderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,13 @@ public class ReaderJsonModelImpl implements ReaderJsonModel {
     private static final Logger log = LoggerFactory.getLogger(ReaderJsonModelImpl.class);
 
     @Override
-    public String select(long bookId, long readerId) {
+    public String select(long readerId) {
+        return null;
+    }
+
+    @Override
+    public String delete(long readerId, long bookId) {
+
         return null;
     }
 }
