@@ -14,7 +14,7 @@ public interface ActionRest {
      * @param params
      * @return
      */
-    String get(String[] paths, Map<String, String[]> params) throws ControllerException;
+    ActionResult get(String[] paths, Map<String, String[]> params) throws ControllerException;
 
     /**
      * Like add
@@ -24,7 +24,7 @@ public interface ActionRest {
      * @param reqBody
      * @return
      */
-    String put(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
+    ActionResult put(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
 
     /**
      * Like update
@@ -34,7 +34,7 @@ public interface ActionRest {
      * @param reqBody
      * @return
      */
-    String post(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
+    ActionResult post(String[] paths, Map<String, String[]> params, String reqBody) throws ControllerException;
 
     /**
      * Like delete
@@ -43,5 +43,5 @@ public interface ActionRest {
      * @param params
      * @return
      */
-    String delete(String[] paths, Map<String, String[]> params) throws ControllerException;
+    ActionResult delete(String[] paths, Map<String, String[]> params) throws ControllerException;
 }

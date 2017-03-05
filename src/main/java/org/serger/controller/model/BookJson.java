@@ -3,9 +3,12 @@ package org.serger.controller.model;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.serger.controller.ControllerException;
 import org.serger.domain.entity.Book;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by galichanin on 04.03.2017.
@@ -27,10 +30,16 @@ public class BookJson extends Book {
      * JSON to BookJson constructor...
      * @param reqBody - json
      */
-    public BookJson(String reqBody) throws ParseException {
+    public BookJson(String reqBody) throws ControllerException {
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) parser.parse(reqBody);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (JSONObject) parser.parse(reqBody);
+        } catch (ParseException e) {
+            throw new ControllerException("Parse JSON error! "+e.toString(), HttpServletResponse.SC_BAD_REQUEST);
+        }
         JSONObject jsonBook = (JSONObject) jsonObject.get("book");
+        if (jsonBook == null) throw new ControllerException("Error param", HttpServletResponse.SC_BAD_REQUEST);
         setTitle((String)jsonBook.get("title"));
         setAuthor((String)jsonBook.get("author"));
         log.debug("After JSON parse = " + toString());

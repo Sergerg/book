@@ -1,6 +1,7 @@
 package org.serger.servlets;
 
 import org.serger.controller.ActionRest;
+import org.serger.controller.ActionResult;
 import org.serger.controller.ControllerException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,10 @@ public class BooksRestServlet extends HttpServlet {
             Object controller = applicationContext.getBean(controllerBeanName);
             log("Check ActionRest...");
             if (!(controller instanceof ActionRest)) {
-                throw new ServletException("Inner error!");
+                throw new ControllerException("Wrong action!", HttpServletResponse.SC_BAD_REQUEST);
             }
             ActionRest actionRest = ((ActionRest) controller);
-            String rest;
+            ActionResult rest;
             switch (method) {
                 case "PUT":
                     rest = actionRest.put(paths, req.getParameterMap(), reqBody);
@@ -60,23 +61,31 @@ public class BooksRestServlet extends HttpServlet {
                     rest = actionRest.delete(paths, req.getParameterMap());
                     break;
                 case "GET":
-                default:    // ???
                     rest = actionRest.get(paths, req.getParameterMap());
                     break;
+                default:
+                    throw new ControllerException("Method "+method+" is not supported!", HttpServletResponse.SC_BAD_REQUEST);
             }
 
-            // Standart REST response
-            // TODO: check!!!
-            res.getOutputStream().write( rest.getBytes("UTF-8") );
-            res.setContentType("application/json; charset=UTF-8");
-            res.setHeader("Access-Control-Allow-Origin", "*");
-            res.setStatus( HttpServletResponse.SC_OK );
+            makeResponse(rest, res);
         } catch (NoSuchBeanDefinitionException e) {
             throw new ServletException("Method Not found", e);
         } catch (ControllerException e) {
-            throw new ServletException(e.getLocalizedMessage(), e);
+            String se = "{\"error\":\""+e.getLocalizedMessage()+"\"}";
+            res.setContentType("application/json; charset=UTF-8");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.getOutputStream().write( se.getBytes("UTF-8") );
+            res.setStatus(e.getStatus());
         }
         log("Query ok!");
+    }
+
+    private void makeResponse(ActionResult rest, HttpServletResponse res) throws IOException {
+        // Standart REST response
+        res.setContentType("application/json; charset=UTF-8");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.getOutputStream().write( rest.body.getBytes("UTF-8") );
+        res.setStatus( (rest.status == 0) ? HttpServletResponse.SC_OK : rest.status);
     }
 
     /**

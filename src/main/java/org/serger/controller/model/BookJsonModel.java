@@ -8,6 +8,5 @@ public interface BookJsonModel {
     void delete(long id);
     void update(BookJson book);
     void insert(BookJson book);
-    void upsert(BookJson book);
     String selectAll();
 }

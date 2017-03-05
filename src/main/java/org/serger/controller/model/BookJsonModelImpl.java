@@ -44,11 +44,6 @@ public class BookJsonModelImpl implements BookJsonModel {
     }
 
     @Override
-    public void upsert(BookJson book) {
-        ;
-    }
-
-    @Override
     public String selectAll() {
         JSONArray jsonBooks = new JSONArray();
         bookMapper.selectAll().stream().forEach( book1 -> {
