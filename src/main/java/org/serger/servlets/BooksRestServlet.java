@@ -22,39 +22,45 @@ import java.io.IOException;
 /**
  * Created by galichanin on 02.03.2017.
  */
-@WebServlet("/books")
+@WebServlet("/*")
 public class BooksRestServlet extends HttpServlet {
 
     final Logger log = LoggerFactory.getLogger(BooksRestServlet.class);
 
+    private ApplicationContext applicationContext;
+
     @Override
     public void init() {
-        ApplicationContext context = new AnnotationConfigApplicationContext("org.serger");
+        applicationContext = new AnnotationConfigApplicationContext("org.serger");
     }
-
-    @Autowired
-    ApplicationContext applicationContext;
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        String path = req.getPathInfo();
-        log.debug("Book servlet path = "+path);
-        String method = req.getMethod();
-        log.debug("Method = "+method);
+        try {
+            String path = req.getPathInfo();
+            log.debug("Book servlet path = "+path);
+            System.out.println("Book servlet path = "+path);
+            if (path == null)
+                throw new ControllerException("Path not found", HttpServletResponse.SC_BAD_REQUEST);
+            String method = req.getMethod();
+            log.debug("Method = "+method);
+            System.out.println("Method = "+method);
 
-        String[] paths = path.split("/");
-        // TODO: check URL
+            String[] paths = path.split("/");
+            // TODO: check URL
 //        if (paths.length < 2 && paths.length > 3) {
 //            throw new ServletException("Bad URL");
 //        }
 
-        String reqBody = readRequestBody(req);
-        log.debug("reqBody = "+reqBody);
+            String reqBody = readRequestBody(req);
+            log.debug("reqBody = "+reqBody);
+            System.out.println("reqBody = "+reqBody);
 
-        String controllerBeanName = prepareControllerBeanName(paths[1]);
-        log.debug("Try find bean:"+controllerBeanName);
-        try {
+            String controllerBeanName = prepareControllerBeanName(paths[1]);
+            log.debug("Try find bean:"+controllerBeanName);
+            System.out.println("Try find bean:"+controllerBeanName);
+
             Object controller = applicationContext.getBean(controllerBeanName);
             log.debug("Check ActionRest...");
             if (!(controller instanceof ActionRest)) {

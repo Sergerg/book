@@ -2,6 +2,7 @@ package org.serger.domain.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.serger.domain.entity.Book;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 

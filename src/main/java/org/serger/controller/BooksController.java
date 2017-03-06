@@ -26,6 +26,7 @@ public class BooksController extends AbstractController {
         ActionResult result = new ActionResult();
         long id = parseId(paths, true);
         log.debug("get, id="+id);
+        System.out.println("get, id="+id);
         if (id == 0) {
             result.body = bookJsonModel.selectAll();
         } else {

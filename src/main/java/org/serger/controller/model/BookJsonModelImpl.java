@@ -58,7 +58,7 @@ public class BookJsonModelImpl implements BookJsonModel {
 
     @Override
     public String selectAll() {
-        return selectBooks(bookMapper.selectAll().stream());  // XXX: Limit!!!
+        return "";//selectBooks(bookMapper.selectAll().stream());  // XXX: Limit!!!
     }
 
     @Override
