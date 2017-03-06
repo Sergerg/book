@@ -3,11 +3,15 @@ package org.serger.servlets;
 import org.serger.controller.ActionRest;
 import org.serger.controller.ActionResult;
 import org.serger.controller.ControllerException;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +22,15 @@ import java.io.IOException;
 /**
  * Created by galichanin on 02.03.2017.
  */
+@WebServlet("/books")
 public class BooksRestServlet extends HttpServlet {
+
+    final Logger log = LoggerFactory.getLogger(BooksRestServlet.class);
+
+    @Override
+    public void init() {
+        ApplicationContext context = new AnnotationConfigApplicationContext("org.serger");
+    }
 
     @Autowired
     ApplicationContext applicationContext;
@@ -27,9 +39,9 @@ public class BooksRestServlet extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         String path = req.getPathInfo();
-        log("Book servlet path = "+path);
+        log.debug("Book servlet path = "+path);
         String method = req.getMethod();
-        log("Method = "+method);
+        log.debug("Method = "+method);
 
         String[] paths = path.split("/");
         // TODO: check URL
@@ -38,13 +50,13 @@ public class BooksRestServlet extends HttpServlet {
 //        }
 
         String reqBody = readRequestBody(req);
-        log("reqBody = "+reqBody);
+        log.debug("reqBody = "+reqBody);
 
         String controllerBeanName = prepareControllerBeanName(paths[1]);
-        log("Try find bean:"+controllerBeanName);
+        log.debug("Try find bean:"+controllerBeanName);
         try {
             Object controller = applicationContext.getBean(controllerBeanName);
-            log("Check ActionRest...");
+            log.debug("Check ActionRest...");
             if (!(controller instanceof ActionRest)) {
                 throw new ControllerException("Wrong action!", HttpServletResponse.SC_BAD_REQUEST);
             }
@@ -68,8 +80,6 @@ public class BooksRestServlet extends HttpServlet {
             }
 
             makeResponse(rest, res);
-        } catch (NoSuchBeanDefinitionException e) {
-            throw new ServletException("Method Not found", e);
         } catch (ControllerException e) {
             String se = "{\"error\":\""+e.getLocalizedMessage()+"\"}";
             res.setContentType("application/json; charset=UTF-8");
@@ -77,7 +87,7 @@ public class BooksRestServlet extends HttpServlet {
             res.getOutputStream().write( se.getBytes("UTF-8") );
             res.setStatus(e.getStatus());
         }
-        log("Query ok!");
+        log.debug("Query ok!");
     }
 
     private void makeResponse(ActionResult rest, HttpServletResponse res) throws IOException {
@@ -110,10 +120,9 @@ public class BooksRestServlet extends HttpServlet {
             }
             return buffer.toString();
         } catch (Exception e) {
-            log("Failed to read the request body from the request.");
+            log.warn("Failed to read the request body from the request.");
         }
         return null;
     }
-
 
 }
