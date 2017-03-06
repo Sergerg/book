@@ -5,15 +5,22 @@ import org.serger.servlets.BooksRestServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import javax.servlet.Servlet;
 
 @SpringBootApplication
-public class BookApplication {
+public class BookApplication extends SpringBootServletInitializer {
 
-	@Bean
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(BookApplication.class);
+    }
+
+    @Bean
 	public Servlet dispatcherServlet() {
 		return new BooksRestServlet();
 	}
