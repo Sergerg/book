@@ -35,18 +35,18 @@ public class BookApplicationTests {
     public void test() {
         // Create
         List<Book> books = Arrays.asList(
-                new Book("Book 1", "Author 1", null),
-                new Book("Book 2", "Author 1", null),
-                new Book("Book 3", "Author 2", null)
+                new Book("Book 8", "Author 1", null),
+                new Book("Book 9", "Author 1", null),
+                new Book("Book 10", "Author 2", null)
         );
         books.forEach(book -> bookMapper.insert(book));
-        assert (bookMapper.selectAll().size() == 3);
+        assert (bookMapper.selectAll().size() == 10);
         List<Reader> readers = Arrays.asList(
                 new Reader(null, "Sergey"),
                 new Reader(null, "Alex")
         );
         readers.forEach(reader -> readerMapper.insert(reader));
-        assert (readerMapper.selectAll().size() == 2);
+        assert (readerMapper.selectAll().size() == 10);
 
         // Books
         assert (bookMapper.selectByTitle("1").size() == 0);
@@ -65,10 +65,8 @@ public class BookApplicationTests {
         log.info("+++++++++ Reader 2 ID = "+reader2.getId());
 
         // BookReaders
-        BookReader bookReader1 = new BookReader(null, book1.getId(), reader1.getId());
         BookReader bookReader2 = new BookReader(null, book3.getId(), reader1.getId());
         BookReader bookReader3 = new BookReader(null, book3.getId(), reader2.getId());
-        bookReaderMapper.insert(bookReader1);
         bookReaderMapper.insert(bookReader2);
         try {
             bookReaderMapper.insert(bookReader3);
@@ -78,7 +76,7 @@ public class BookApplicationTests {
         assert (bookReaderMapper.selectAll().size() == 2);
 
         // Test bookReader:
-        assert (bookReaderMapper.selectBooksByReader(reader1.getId()).size()==2);
+        assert (bookReaderMapper.selectBooksByReader(reader1.getId()).size()==1);
         assert (bookReaderMapper.selectBooksByReader(reader2.getId()).size()==0);
     }
 
