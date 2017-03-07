@@ -3,13 +3,15 @@ package org.serger.domain.mapper;
 import org.apache.ibatis.annotations.*;
 import org.serger.domain.entity.Book;
 import org.serger.domain.entity.BookReader;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by galichanin on 01.03.2017.
  */
-@Mapper
+//@Mapper
+@Component
 public interface BookReaderMapper {
     @Options(useGeneratedKeys = true)
     @Insert("INSERT INTO bookreader (book_id, reader_id) VALUES (#{bookId}, #{readerId})")

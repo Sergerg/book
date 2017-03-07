@@ -2,13 +2,15 @@ package org.serger.domain.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.serger.domain.entity.Reader;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by galichanin on 01.03.2017.
  */
-@Mapper
+//@Mapper
+@Component
 public interface ReaderMapper {
 
     @Options(useGeneratedKeys = true)

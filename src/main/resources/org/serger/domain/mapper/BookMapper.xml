@@ -10,4 +10,7 @@
         </set>
         where id = #{id}
     </update>
+    <select id="selectAll" resultType="org.serger.domain.entity.Book">
+        SELECT * FROM book
+    </select>
 </mapper>

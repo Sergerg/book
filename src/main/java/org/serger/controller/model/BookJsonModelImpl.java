@@ -1,5 +1,7 @@
 package org.serger.controller.model;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.serger.domain.entity.Book;
@@ -58,7 +60,6 @@ public class BookJsonModelImpl implements BookJsonModel {
 
     @Override
     public String selectAll() {
-        log.info("sssssss");
         return selectBooks(bookMapper.selectAll().stream());  // XXX: Limit!!!
     }
 
