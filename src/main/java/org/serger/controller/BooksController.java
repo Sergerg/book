@@ -25,8 +25,7 @@ public class BooksController extends AbstractController {
     public ActionResult get(String[] paths, Map params) throws ControllerException {
         ActionResult result = new ActionResult();
         long id = parseId(paths, true);
-        log.debug("get, id="+id);
-        System.out.println("get, id="+id);
+        log.info("get, id="+id);
         if (id == 0) {
             result.body = bookJsonModel.selectAll();
         } else {
@@ -40,7 +39,7 @@ public class BooksController extends AbstractController {
         ActionResult result = new ActionResult();
         BookJson book = new BookJson(reqBody);
         long id = parseId(paths, true);
-        log.debug("put, id="+id+",params="+book);
+        log.info("put, id="+id+",params="+book);
         if (id == 0) {
             bookJsonModel.insert(book);
             result.status = HttpServletResponse.SC_CREATED;
@@ -56,7 +55,7 @@ public class BooksController extends AbstractController {
     public ActionResult post(String[] paths, Map params, String reqBody) throws ControllerException {
         ActionResult result = new ActionResult();
         BookJson book = new BookJson(reqBody);
-        log.debug("post, params="+book);
+        log.info("post, params="+book);
         bookJsonModel.update(book);
         result.body = "";
         return result;
@@ -66,7 +65,7 @@ public class BooksController extends AbstractController {
     public ActionResult delete(String[] paths, Map params) throws ControllerException {
         ActionResult result = new ActionResult();
         long id = parseId(paths, false);
-        log.debug("delete, id="+id);
+        log.info("delete, id="+id);
         bookJsonModel.delete(id);
         result.body = "";
         return result;

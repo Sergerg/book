@@ -5,8 +5,6 @@ import org.serger.controller.ActionResult;
 import org.serger.controller.ControllerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -39,13 +37,11 @@ public class BooksRestServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String path = req.getPathInfo();
-            log.debug("Book servlet path = "+path);
-            System.out.println("Book servlet path = "+path);
+            log.info("Book servlet path = "+path);
             if (path == null)
                 throw new ControllerException("Path not found", HttpServletResponse.SC_BAD_REQUEST);
             String method = req.getMethod();
-            log.debug("Method = "+method);
-            System.out.println("Method = "+method);
+            log.info("Method = "+method);
 
             String[] paths = path.split("/");
             // TODO: check URL
@@ -54,15 +50,13 @@ public class BooksRestServlet extends HttpServlet {
 //        }
 
             String reqBody = readRequestBody(req);
-            log.debug("reqBody = "+reqBody);
-            System.out.println("reqBody = "+reqBody);
+            log.info("reqBody = "+reqBody);
 
             String controllerBeanName = prepareControllerBeanName(paths[1]);
-            log.debug("Try find bean:"+controllerBeanName);
-            System.out.println("Try find bean:"+controllerBeanName);
+            log.info("Try find bean:"+controllerBeanName);
 
             Object controller = applicationContext.getBean(controllerBeanName);
-            log.debug("Check ActionRest...");
+            log.info("Check ActionRest...");
             if (!(controller instanceof ActionRest)) {
                 throw new ControllerException("Wrong action!", HttpServletResponse.SC_BAD_REQUEST);
             }
@@ -93,7 +87,7 @@ public class BooksRestServlet extends HttpServlet {
             res.getOutputStream().write( se.getBytes("UTF-8") );
             res.setStatus(e.getStatus());
         }
-        log.debug("Query ok!");
+        log.info("Query ok!");
     }
 
     private void makeResponse(ActionResult rest, HttpServletResponse res) throws IOException {

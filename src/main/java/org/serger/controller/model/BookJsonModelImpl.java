@@ -32,7 +32,7 @@ public class BookJsonModelImpl implements BookJsonModel {
     @Override
     public String select(long id) {
         BookJson bookSelected = new BookJson(bookMapper.selectById(id).stream().findFirst().get());
-        log.debug("get, found book="+bookSelected);
+        log.info("get, found book="+bookSelected);
         return bookSelected.buildBookJson().toJSONString();
     }
 
@@ -58,7 +58,8 @@ public class BookJsonModelImpl implements BookJsonModel {
 
     @Override
     public String selectAll() {
-        return "";//selectBooks(bookMapper.selectAll().stream());  // XXX: Limit!!!
+        log.info("sssssss");
+        return selectBooks(bookMapper.selectAll().stream());  // XXX: Limit!!!
     }
 
     @Override
