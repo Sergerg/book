@@ -1,7 +1,5 @@
 package org.serger.controller.model;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.serger.domain.entity.Book;

@@ -1,21 +1,34 @@
 #Book REST service.
 
-For test logic run '`mvn test`'.
-For command line run.
-In pom file: <br/>
-`	<!--<packaging>jar</packaging>-->`<br/>
-`	<packaging>war</packaging>`
-`mvn clean package`<br/>
-`cd target && java -jar book*.jar`
+`mvn clean package`
 
 Use:
 `http://localhost:8080/books/readers/{reader_id}/books/{book_id}`
-GET - book_id not use,
-PUT,
-DELETE
+<br/>
+Methods:
+<br/>
+- GET - book_id not use, list of book for reader
+<br/>
+Url `http://localhost:8080/books/readers/1/books`
+- PUT - add book to reader
+<br/>
+Url `http://localhost:8080/books/readers/1/books/2`
+- DELETE - 'back' book from reader
+<br/>
+Url `http://localhost:8080/books/readers/1/books/2`
+
+Bonus:
+Add book:
+<br/>
+Method: `PUT`
+<br/>
+Url: `http://localhost:8080/books/books/`
+<br/>
+Body: `{"book":{"title":"title 1", "author":"Author 100"}}`
 
 
-Tasks:
+<br/>
+Tasks list:
 
 1. MyBatis query for get Reader\`s by Book, get Book`s by Reader.
 2. Create 3 Book, 2 Reader, 1 Reader read 0 Book, 1 Reader read 2 Book. Test 1 query. 
